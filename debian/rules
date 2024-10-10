@@ -1,4 +1,8 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
+
+export DH_GOLANG_INSTALL_EXTRA := codec/test-cbor-goldens.json
+export DH_GOLANG_EXCLUDES := codec/bench
 
 %:
-	dh $@
+	dh $@ --buildsystem=golang --with=golang

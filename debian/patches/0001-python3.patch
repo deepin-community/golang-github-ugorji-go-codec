@@ -1,0 +1,39 @@
+From: Shengjing Zhu <zhsj@debian.org>
+Date: Sun, 27 Mar 2022 18:43:42 +0800
+Subject: python3
+
+---
+ codec/codec_test.go | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/codec/codec_test.go b/codec/codec_test.go
+index c9fe3ff..4f409b6 100644
+--- a/codec/codec_test.go
++++ b/codec/codec_test.go
+@@ -1967,7 +1967,7 @@ func doTestPythonGenStreams(t *testing.T, h Handle) {
+ 	if testVerbose {
+ 		t.Logf("tmpdir: %v", tmpdir)
+ 	}
+-	cmd := exec.Command("python", "test.py", "testdata", tmpdir)
++	cmd := exec.Command("python3", "test.py", "testdata", tmpdir)
+ 	//cmd.Stdin = strings.NewReader("some input")
+ 	//cmd.Stdout = &out
+ 	var cmdout []byte
+@@ -2082,7 +2082,7 @@ func doTestMsgpackRpcSpecGoClientToPythonSvc(t *testing.T, h Handle) {
+ 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+ 	openPort := strconv.FormatInt(6700+r.Int63n(99), 10)
+ 	// openPort := "6792"
+-	cmd := exec.Command("python", "test.py", "rpc-server", openPort, "4")
++	cmd := exec.Command("python3", "test.py", "rpc-server", openPort, "4")
+ 	testCheckErr(t, cmd.Start())
+ 	bs, err2 := net.Dial("tcp", ":"+openPort)
+ 	maxSleepTime := 500 * time.Millisecond
+@@ -2112,7 +2112,7 @@ func doTestMsgpackRpcSpecPythonClientToGoSvc(t *testing.T, h Handle) {
+ 	// seems 10ms is not enough for test run; set high to 1 second, and client will close when done
+ 	exitSleepDur := 1000 * time.Millisecond
+ 	port := doTestCodecRpcOne(t, MsgpackSpecRpc, h, false, exitSleepDur)
+-	cmd := exec.Command("python", "test.py", "rpc-client-go-service", strconv.Itoa(port))
++	cmd := exec.Command("python3", "test.py", "rpc-client-go-service", strconv.Itoa(port))
+ 	var cmdout []byte
+ 	var err error
+ 	if cmdout, err = cmd.CombinedOutput(); err != nil {
